@@ -9,7 +9,7 @@ export default function Page() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/fetchData');
+        const response = await fetch('/api/fetchByDate');
         const text = await response.text();
         console.log("Response text:", text);
 
@@ -33,9 +33,8 @@ export default function Page() {
   }
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <div>
-        <h1>Test page?</h1>
         <div>
           <input
             type="date"
@@ -44,11 +43,23 @@ export default function Page() {
         </div>
         <div>
           <h2>Data from analysed_table:</h2>
-          <ul>
-            {
-                JSON.stringify(data)
-            }
-          </ul>
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+            <ol>
+              {
+                data.map((item, index) => (
+                    <li key={index} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                      <div className="order-1 sm:ml-6 xl:ml-0">
+                          <h3 className="mb-1 text-slate-900 font-semibold">
+                              <span className="mb-1 block text-sm leading-6 text-indigo-500">{item.categorization}</span>
+                          </h3>
+                          <div className="prose prose-slate prose-sm text-slate-600">
+                            {item.summary}
+                          </div>
+                      </div>
+                  </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     </div>
