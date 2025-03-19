@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [date, setDate] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +40,7 @@ export default function Page() {
           <input
             type="date"
             className="border border-gray-300 rounded-md p-2"
+            onChange={(event) => setDate(event.target.value)}
           />
         </div>
         <div>
