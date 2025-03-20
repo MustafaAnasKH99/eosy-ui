@@ -1,16 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getTodayDate } from "@/utils/getDate";
 
 export default function Page() {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(getTodayDate());
 
   useEffect(() => {
+    const today = getTodayDate();
+    if (!date) {
+      setDate(today);
+    }
+    console.log("gotten here and date is: ", date);
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/fetchByDate');
+        const response = await fetch(`/api/fetchByDate?date=${date}`);
         const text = await response.text();
         console.log("Response text:", text);
 
@@ -27,7 +33,7 @@ export default function Page() {
     };
 
     fetchData();
-  }, []);
+  }, [date]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -41,10 +47,12 @@ export default function Page() {
             type="date"
             className="border border-gray-300 rounded-md p-2"
             onChange={(event) => setDate(event.target.value)}
+            value={date}
+            max={date}
           />
         </div>
         <div>
-          <h2>Data from analysed_table:</h2>
+          <h2>Data analysed on {date}:</h2>
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
             <ol>
               {
