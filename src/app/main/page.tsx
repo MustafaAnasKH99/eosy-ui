@@ -42,7 +42,7 @@ export default function Page() {
   return (
     <div className="grid items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <div>
-        <div>
+        <div className="flex items-end justify-between">
           <input
             type="date"
             className="border border-gray-300 rounded-md p-2"
@@ -52,23 +52,23 @@ export default function Page() {
           />
         </div>
         <div>
-          <h2>Data analysed on {date}:</h2>
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-            <ol>
+          <div className="grid grid-cols-3 mt-10">
               {
                 data.map((item, index) => (
-                    <li key={index} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                      <div className="order-1 sm:ml-6 xl:ml-0">
+                    <div key={index} className=" flex flex-wrap m-3 max-w-365 bg-zinc-900 rounded-lg shadow-lg p-3">
                           <h3 className="mb-1 text-slate-900 font-semibold">
                               <span className="mb-1 block text-sm leading-6 text-indigo-500">{item.categorization}</span>
                           </h3>
                           <div className="prose prose-slate prose-sm text-slate-600">
                             {item.summary}
                           </div>
-                      </div>
-                  </li>
+                          <div>
+                            <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                              View
+                            </button>
+                          </div>
+                  </div>
               ))}
-            </ol>
           </div>
         </div>
       </div>
